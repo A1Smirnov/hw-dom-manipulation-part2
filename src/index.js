@@ -117,18 +117,22 @@ topMenuEl.addEventListener('click', function(event) {
 event.preventDefault();
 // The second line of code of the function should immediately return if the element clicked was not an <a> element.
 
-// !!! BUGFIX !!! Used capital `A` instead of lowercase `a` because this property in upperCase and in CSS it's lowercase
+// !!! BUGFIX №1 !!! Used capital `A` instead of lowercase `a` because this property in upperCase and in CSS it's lowercase
 
 if (event.target.tagName !== 'A') return;
 // Log the content of the <a> to verify the handler is working.
 
-// !!! BUGFIX !!!
+// !!! BUGFIX №2 !!!
 console.log(event.target.textContent);
 
 // Now that we have references to each of these links, and a registered event listener, we will want to add a toggled "active" state to each menu item, showing whether or not it is currently selected:
   const clickedLink = event.target;
 
-//  !!! BUGFIX !!! USING CONTAINS INSTEAD OF BOOLEAN TOOGLE
+//  !!! BUGFIX №4 !!! PRETTY STUPID SOLVE FOR ISSUE WITH "ABOUT" BUT IT WORKS, THAT MEAN EVERYBODY HAPPY
+
+  mainEl.innerHTML = `<h1>${clickedLink.textContent}</h1>`;
+
+//  !!! BUGFIX №3 !!! USING CONTAINS INSTEAD OF BOOLEAN TOOGLE
 
 const isActive = clickedLink.classList.contains('active');
 
@@ -144,6 +148,8 @@ if (isActive) {
   clickedLink.classList.add('active');
 }
 });
+
+//!!!
 // Hint: Removing a non-existent class from an element does not cause an error!
 // Progress Check - Clicking any of the links should make that link active and clear the others. Clicking an active link should clear that link. Here is what it should look like so far, with "CATALOG" active:
 
@@ -220,6 +226,10 @@ subMenuEl.addEventListener('click', function(event) {
 
   // Return early if the clicked element is not an <a> element
   if (event.target.tagName !== 'A') return;
+
+// !!! BUGFIX !!!
+event.stopPropagation();
+
 
   // Log the content of the <a> to verify the handler is working
   console.log(event.target.textContent);
